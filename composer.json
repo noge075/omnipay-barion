@@ -1,7 +1,7 @@
 {
-    "name": "noge075/omnipay-barion",
+    "name": "kiuka/omnipay-barion",
     "description": "Barion gateway for Omnipay",
-    "homepage": "https://github.com/noge075/omnipay-barion",
+    "homepage": "https://github.com/kiuka/omnipay-barion",
     "autoload": {
         "psr-4": { "Omnipay\\Barion\\" : "src/" }
     },
