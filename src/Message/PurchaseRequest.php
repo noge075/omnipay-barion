@@ -226,21 +226,6 @@ class PurchaseRequest extends AbstractRequest
         return $this->getParameter('payee');
     }
 
-    /**
-     * @param $value
-     */
-    public function setDump($value)
-    {
-        $this->setParameter('dump', $value);
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getDump()
-    {
-        return $this->getParameter('dump');
-    }
 
     /**
      * @param $value
