@@ -1,8 +1,8 @@
 <?php
 namespace Omnipay\Barion\Message;
 
-use League\Omnipay\Common\Message\AbstractResponse;
-use League\Omnipay\Common\Message\RedirectResponseInterface;
+use Omnipay\Common\Message\AbstractResponse;
+use Omnipay\Common\Message\RedirectResponseInterface;
 
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
