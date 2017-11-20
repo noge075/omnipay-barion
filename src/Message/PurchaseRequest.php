@@ -149,6 +149,10 @@ class PurchaseRequest extends AbstractRequest
 					['verify' => __DIR__ . '/../certs/cacert.pem']
 				);
 
+            if($this->getDump()){
+                print_r(json_encode($data));
+            }
+
 			$httpResponse = $httpRequest
 				->send()
 				->json();
@@ -220,6 +224,21 @@ class PurchaseRequest extends AbstractRequest
     public function getPayee()
     {
         return $this->getParameter('payee');
+    }
+    /**
+     * @param $value
+     */
+    public function setDump($value)
+    {
+        $this->setParameter('dump', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDump()
+    {
+        return $this->getParameter('dump');
     }
 
     /**

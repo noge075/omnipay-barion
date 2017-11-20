@@ -33,6 +33,7 @@ class Gateway extends AbstractGateway
 			'orderNumber'        => null,
 			'shippingAddress'    => null,
 			'locale'             => null,
+			'dump'             => false,
 		];
 	}
 
