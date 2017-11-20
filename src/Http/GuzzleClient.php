@@ -3,7 +3,7 @@ namespace Omnipay\Barion\Http;
 
 use Psr\Http\Message\RequestInterface;
 
-class GuzzleClient extends \Omnipay\Common\Http\GuzzleClient
+class GuzzleClient extends \Http\Client\HttpClient
 {
     /**
      * @inheritdoc
