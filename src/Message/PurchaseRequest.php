@@ -149,7 +149,7 @@ class PurchaseRequest extends AbstractRequest
 					['verify' => __DIR__ . '/../certs/cacert.pem']
 				);
 
-            if($this->getDump()){
+            if($this->getParameter('dump')){
                 print_r(json_encode($data));
             }
 
