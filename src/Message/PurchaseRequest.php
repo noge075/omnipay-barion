@@ -2,9 +2,9 @@
 
 namespace Omnipay\Barion\Message;
 
-use League\Omnipay\Common\Exception\InvalidResponseException;
-use League\Omnipay\Common\Message\AbstractRequest;
+use Guzzle\Http\Exception\ClientErrorResponseException;
 use Omnipay\Barion\ItemBag;
+use Omnipay\Common\Message\AbstractRequest;
 
 /**
  * Barion Purchase Request
@@ -137,26 +137,29 @@ class PurchaseRequest extends AbstractRequest
      * @return PurchaseResponse
      */
     public function sendData($data)
-    {
-        try {
-            $httpRequest = $this->httpClient->post(
-                $this->getEndpoint(),
-                [
-                    'Content-Type' => 'application/json',
-                ],
-                \json_encode($data)
-            );
+	{
+		try {
+			$httpRequest = $this
+				->httpClient
+				->createRequest(
+					'POST',
+					$this->getEndpoint(),
+					['Content-type' => 'application/json'],
+					json_encode($data),
+					['verify' => __DIR__ . '/../certs/cacert.pem']
+				);
 
-            $httpResponse = (array) \json_decode($httpRequest->getBody()->getContents());
-        } catch (\Exception $e) {
-            $httpResponse = [
-                'error' => true,
-                'message' => $e->getMessage()];
-        }
+			$httpResponse = $httpRequest
+				->send()
+				->json();
+		} catch (ClientErrorResponseException $e) {
+   			$httpResponse = [
+       				'error'   => true,
+       				'message' => $e->getMessage()];
+   		}
 
-        return $this->response = new PurchaseResponse($this, $httpResponse);
-    }
-
+		return $this->response = new PurchaseResponse($this, $httpResponse);
+	}
 
     /**
      * Return amount
