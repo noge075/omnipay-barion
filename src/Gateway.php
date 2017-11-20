@@ -1,8 +1,8 @@
 <?php
 namespace Omnipay\Barion;
 
-use Omnipay\Common\AbstractGateway;
-use Omnipay\Common\Message\AbstractRequest;
+use League\Omnipay\Common\AbstractGateway;
+use League\Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Barion\Http\GuzzleClient;
 use Omnipay\Barion\Message\PurchaseRequest;
 

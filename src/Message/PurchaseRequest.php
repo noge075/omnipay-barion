@@ -2,8 +2,8 @@
 
 namespace Omnipay\Barion\Message;
 
-use Omnipay\Common\Exception\InvalidResponseException;
-use Omnipay\Common\Message\AbstractRequest;
+use League\Omnipay\Common\Exception\InvalidResponseException;
+use League\Omnipay\Common\Message\AbstractRequest;
 use Omnipay\Barion\ItemBag;
 
 /**
