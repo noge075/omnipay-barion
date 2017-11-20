@@ -225,6 +225,7 @@ class PurchaseRequest extends AbstractRequest
     {
         return $this->getParameter('payee');
     }
+
     /**
      * @param $value
      */
