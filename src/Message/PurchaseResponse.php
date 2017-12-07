@@ -1,33 +1,27 @@
 <?php
 namespace Omnipay\Barion\Message;
 
-
-use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
+class PurchaseResponse extends AbstractRequest implements RedirectResponseInterface
 {
     protected $redirectUrl;
 
-
     public function isSuccessful()
     {
-        return empty($this->data['error']);
+        return false;
     }
 
     public function isRedirect()
     {
-        if (!isset($this->data['error']) || !$this->data['error']) {
-            return true;
-        }
+        return true;
     }
 
     public function getRedirectUrl()
     {
-        if ($this->isRedirect()) {
-            return $this->data['GatewayUrl'];
-        }
+
+        Barion . "?id=" . $this->->PaymentId
     }
 
     public function getRedirectMethod()

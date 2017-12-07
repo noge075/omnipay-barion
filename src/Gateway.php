@@ -1,6 +1,7 @@
 <?php
 namespace Omnipay\Barion;
 
+use Omnipay\Barion\Message\NotifyRequest;
 use Omnipay\Barion\Message\PurchaseRequest;
 use Omnipay\Common\AbstractGateway;
 use Omnipay\Common\Message\AbstractRequest;
@@ -18,13 +19,13 @@ class Gateway extends AbstractGateway
 			'payee'              => '',
 			'posKey'             => '',
 			'shopName'           => '',
-			'paymentType'        => 'Immediate',
+			'paymentType'        => \PaymentType::Immediate,
 			'reservationPeriod'  => null,
 			'paymentWindow'      => null,
 			'guestCheckOut'      => true,
 			'initiateRecurrence' => null,
 			'recurrenceId'       => null,
-			'fundingSources'     => null,
+			'fundingSources'     => array(\FundingSourceType::All),
 			'paymentRequestId'   => null,
 			'payerHint'          => null,
 			'redirectUrl'        => null,
@@ -32,7 +33,7 @@ class Gateway extends AbstractGateway
 			'transactions'       => null,
 			'orderNumber'        => null,
 			'shippingAddress'    => null,
-			'locale'             => null,
+			'locale'             => \UILocale::EN,
 			'dump'             => false,
 		];
 	}
@@ -45,6 +46,11 @@ class Gateway extends AbstractGateway
 	{
 		return $this->createRequest(PurchaseRequest::class, $options);
 	}
+
+    public function acceptNotification(array $parameters = array())
+    {
+        return $this->createRequest(NotifyRequest::class, $parameters);
+    }
 
 	/**
 	 * @param $value

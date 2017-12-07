@@ -4,131 +4,103 @@ namespace Omnipay\Barion\Message;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Omnipay\Barion\ItemBag;
-use Omnipay\Common\Message\AbstractRequest;
 
 /**
  * Barion Purchase Request
  */
 class PurchaseRequest extends AbstractRequest
 {
-    /**
-     * @var string   supported version of API
-     */
-    protected $apiVersion = 'v2';
+    protected $data;
 
-    /**
-     * @var string   name of the method that starts the transaction
-     */
-    protected $startTransactionMethod = 'Payment/Start';
-
-    /**
-     * @var string   live host of API
-     */
-    protected $liveEndpoint = 'https://api.barion.com/';
-
-    /**
-     * @var string   test host of API
-     */
-    protected $testEndpoint = 'https://api.test.barion.com/';
-
-    /**
-     * return the post data for start payment call
-     *
-     * @return array
-     */
     public function getData()
     {
-        $data = [];
 
-        $data['POSKey'] = $this->getPosKey();
-        $data['PaymentType'] = $this->getPaymentType();
+        $ppr = new \PreparePaymentRequestModel();
+
+        if ($this->getGuestCheckOut() !== NULL) {
+            $ppr->GuestCheckOut = $this->getGuestCheckOut();
+        }
+
+        $ppr->PaymentType = $this->getPaymentType();
 
         if ($this->getReservationPeriod() !== NULL) {
-            $data['ReservationPeriod'] = $this->getReservationPeriod();
+            $ppr->ReservationPeriod = $this->getReservationPeriod();
         }
 
         if ($this->getPaymentWindow() !== NULL) {
-            $data['PaymentWindow'] = $this->getPaymentWindow();
-        }
-
-        if ($this->getGuestCheckOut() !== NULL) {
-            $data['GuestCheckOut'] = $this->getGuestCheckOut();
+            $ppr->PaymentWindow = $this->getPaymentWindow();
         }
 
         if ($this->getInitiateRecurrence() !== NULL) {
-            $data['InitiateRecurrence'] = $this->getInitiateRecurrence();
+            $ppr->InitiateRecurrence = $this->getInitiateRecurrence();
         }
 
         if ($this->getRecurrenceId() !== NULL) {
-            $data['RecurrenceId'] = $this->getRecurrenceId();
+            $ppr->RecurrenceId = $this->getRecurrenceId();
         }
 
         if ($this->getFundingSources() !== NULL) {
-            $data['FundingSources'] = $this->getFundingSources();
+            $ppr->FundingSources = $this->getFundingSources();
         }
 
         if ($this->getPaymentRequestId() !== NULL) {
-            $data['PaymentRequestId'] = $this->getPaymentRequestId();
+            $ppr->PaymentRequestId= $this->getPaymentRequestId();
         }
 
         if ($this->getPayerHint() !== NULL) {
-            $data['PayerHint'] = $this->getPayerHint();
+            $ppr->PayerHint = $this->getPayerHint();
         }
 
         if ($this->getRedirectUrl() !== NULL) {
-            $data['RedirectUrl'] = $this->getRedirectUrl();
+            $ppr->RedirectUrl = $this->getRedirectUrl();
         }
 
         if ($this->getCallbackUrl() !== NULL) {
-            $data['CallbackUrl'] = $this->getCallbackUrl();
+            $ppr->CallbackUrl = $this->getCallbackUrl();
         }
 
         if ($this->getTransactions() !== NULL) {
-            $data['Transactions'] = $this->getTransactions();
+            $ppr->Transactions = $this->getTransactions();
         }
 
         if ($this->getOrderNumber() !== NULL) {
-            $data['OrderNumber'] = $this->getOrderNumber();
+            $ppr->OrderNumber = $this->getOrderNumber();
         }
 
         if ($this->getShippingAddress() !== NULL) {
-            $data['ShippingAddress'] = $this->getShippingAddress();
+            $ppr->ShippingAddress = $this->getShippingAddress();
         }
 
         if ($this->getLocale() !== NULL) {
-            $data['Locale'] = $this->getLocale();
+            $ppr->Locale = $this->getLocale();
         }
 
-        $transactionItems = [];
+        $trans = new \PaymentTransactionModel();
+        $trans->POSTransactionId = ($this->getPaymentRequestId() !== NULL ? $this->getPaymentRequestId() . '-01' : '');
+        $trans->Payee = $this->getPayee();
+        $trans->Total = $this->getAmount();
 
         $items = $this->getItems();
 
         if ($items) {
             foreach ($items as $item) {
-                $transactionItems[] = [
-                    'Name' => $item->getName() ?: '',
-                    'Description' => $item->getDescription() ?: '-',
-                    'Quantity' => $item->getQuantity() ?: '',
-                    'Unit' => $item->getUnitName(),
-                    'UnitPrice' => $item->getPrice() ?: '',
-                    'ItemTotal' => $item->getPrice() && $item->getQuantity() ? ($item->getPrice() * $item->getQuantity()) : '',
-                    'SKU' => $item->getSKU(),
-                ];
+
+                $transItem = new \ItemModel();
+                $transItem->Name = $item->getName() ?: '';
+                $transItem->Description = $item->getDescription() ?: '-';
+                $transItem->Quantity = $item->getQuantity() ?: '';
+                $transItem->Unit = $item->getUnitName();
+                $transItem->UnitPrice = $item->getPrice() ?: '';
+                $transItem->ItemTotal = $item->getPrice() && $item->getQuantity() ? ($item->getPrice() * $item->getQuantity()) : '';
+                $transItem->SKU = $item->getSKU();
+
+                $trans->AddItem($transItem);
             }
         }
 
-        $data['Transactions'] = [
-            [
-                'POSTransactionId' => ($this->getPaymentRequestId() !== NULL ? $this->getPaymentRequestId() . '-01' : ''),
-                'Payee' => $this->getPayee(),
-                'Total' => $this->getAmount(),
-                'Comment' => '',
-                'PayeeTransactions' => [],
-                'Items' => $transactionItems,
-            ],
-        ];
+        $ppr->AddTransaction($trans);
 
-        return $data;
+        return $ppr;
     }
 
     /**
@@ -136,33 +108,9 @@ class PurchaseRequest extends AbstractRequest
      * @param array $data
      * @return PurchaseResponse
      */
-    public function sendData($data)
+    public function sendData($parameters)
 	{
-		try {
-			$httpRequest = $this
-				->httpClient
-				->createRequest(
-					'POST',
-					$this->getEndpoint(),
-					['Content-type' => 'application/json'],
-					json_encode($data),
-					['verify' => __DIR__ . '/../certs/cacert.pem']
-				);
-
-            if($this->getParameter('dump')){
-                print_r(json_encode($data));
-            }
-
-			$httpResponse = $httpRequest
-				->send()
-				->json();
-		} catch (ClientErrorResponseException $e) {
-   			$httpResponse = [
-       				'error'   => true,
-       				'message' => $e->getMessage()];
-   		}
-
-		return $this->response = new PurchaseResponse($this, $httpResponse);
+		return $this->response = new PurchaseResponse($this, $parameters);
 	}
 
     /**
@@ -190,25 +138,6 @@ class PurchaseRequest extends AbstractRequest
         return $this->setParameter('items', $items);
     }
 
-    /**
-     * return the host of api
-     *
-     * @return string
-     */
-    public function getEndpoint()
-    {
-        return ($this->getTestMode() ? $this->testEndpoint : $this->liveEndpoint) . $this->apiVersion . '/' . $this->startTransactionMethod;
-    }
-
-    /**
-     * return the host of redirect url
-     *
-     * @return string
-     */
-    public function getRedirectHost()
-    {
-        return $this->getTestMode() ? $this->testRedirectHost : $this->liveRedirectHost;
-    }
 
     /**
      * @param $value
