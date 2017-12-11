@@ -8,6 +8,7 @@
 
 namespace Omnipay\Barion\Message;
 
+use Guzzle\Http\ClientInterface;
 use Omnipay\Barion\Message\AbstractRequest;
 
 class NotifyRequest extends AbstractRequest

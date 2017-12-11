@@ -9,22 +9,22 @@
 namespace Omnipay\Barion\Message;
 
 
+use Guzzle\Http\ClientInterface;
+use Omnipay\Barion\BarionClient;
 use Omnipay\Barion\BarionEnvironment;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     protected $apiVersion = "2";
 
-    public function __construct(ClientInterface $httpClient, HttpRequest $httpRequest)
+    public function __construct(ClientInterface $httpClient, \HttpRequest $httpRequest)
     {
-        require_once '../library/BarionClient.php';
-
         parent::__construct($httpClient, $httpRequest);
     }
 
     public function getBarionClient()
     {
-        return $this->getBarionClient($this->getPosKey(), $this->apiVersion, $this->getBarionEnvironment());
+        return new BarionClient($this->getPosKey(), $this->apiVersion, $this->getBarionEnvironment());
     }
 
     public function getBarionEnvironment(){
