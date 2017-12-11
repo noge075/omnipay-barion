@@ -20,11 +20,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     }
 
     public function getRedirectUrl(){
-        if($this->getBarionEnvironment() == BarionEnvironment::Test){
-            return BARION_WEB_URL_TEST;
-        }else {
-            return BARION_WEB_URL_PROD;
-        }
+        return $this->request->getRedirectUrl();
     }
 
     public function getRedirectMethod()
