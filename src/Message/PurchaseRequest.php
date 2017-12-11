@@ -106,7 +106,7 @@ class PurchaseRequest extends AbstractRequest
             print_r($ppr);
         }
 
-        return $ppr;
+        return $this->getBarionClient()->PreparePayment($ppr);
     }
 
     /**
@@ -186,13 +186,6 @@ class PurchaseRequest extends AbstractRequest
         $this->setParameter('posKey', $value);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getPosKey()
-    {
-        return $this->getParameter('posKey');
-    }
 
     /**
      * @param $value
