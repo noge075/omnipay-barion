@@ -5,7 +5,7 @@ use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\RedirectResponseInterface;
 use Omnipay\Common\Message\RequestInterface;
 
-class PurchaseResponse extends AbstractResponse  implements RedirectResponseInterface
+class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
     protected $redirectUrl;
 
@@ -19,10 +19,12 @@ class PurchaseResponse extends AbstractResponse  implements RedirectResponseInte
         return true;
     }
 
-    public function getRedirectUrl()
-    {
-
-        return $this->getRedirectUrl();
+    public function getRedirectUrl(){
+        if($this->getBarionEnvironment() == BarionEnvironment::Test){
+            return BARION_WEB_URL_TEST;
+        }else {
+            return BARION_WEB_URL_PROD;
+        }
     }
 
     public function getRedirectMethod()

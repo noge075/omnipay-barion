@@ -35,13 +35,4 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
             return BarionEnvironment::Prod;
         }
     }
-
-    public function getRedirectUrl(){
-        if($this->getBarionEnvironment() == BarionEnvironment::Test){
-            return BARION_WEB_URL_TEST;
-        }else {
-            return BARION_WEB_URL_PROD;
-        }
-    }
-
 }

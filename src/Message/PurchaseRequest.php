@@ -18,7 +18,6 @@ class PurchaseRequest extends AbstractRequest
 
     public function getData()
     {
-
         $ppr = new PreparePaymentRequestModel();
 
         if ($this->getGuestCheckOut() !== NULL) {
@@ -103,6 +102,10 @@ class PurchaseRequest extends AbstractRequest
         }
 
         $ppr->AddTransaction($trans);
+
+        if($this->getDump()){
+            print_r($ppr);
+        }
 
         return $ppr;
     }
