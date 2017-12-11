@@ -21,7 +21,7 @@ class PurchaseResponse extends AbstractRequest implements RedirectResponseInterf
     public function getRedirectUrl()
     {
 
-        Barion . "?id=" . $this->->PaymentId
+        return $this->getRedirectUrl();
     }
 
     public function getRedirectMethod()
@@ -31,6 +31,7 @@ class PurchaseResponse extends AbstractRequest implements RedirectResponseInterf
 
     public function getRedirectData()
     {
+        return null;
     }
 
     public function getMessage()

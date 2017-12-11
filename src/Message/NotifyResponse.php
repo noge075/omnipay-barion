@@ -8,6 +8,7 @@
 
 namespace Omnipay\Barion\Message;
 
+use Omnipay\Barion\PaymentStatus;
 use Omnipay\Common\Message\AbstractResponse;
 use Omnipay\Common\Message\NotificationInterface;
 
@@ -16,7 +17,7 @@ class NotifyResponse extends AbstractResponse implements NotificationInterface
 
     public function isSuccessful()
     {
-        if($this->getRequestSuccessful() && $this->getTransactionStatus() == \PaymentStatus::Succeeded){
+        if($this->getRequestSuccessful() && $this->getTransactionStatus() == PaymentStatus::Succeeded){
             return true;
         }else{
             return false;

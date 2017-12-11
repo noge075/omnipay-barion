@@ -3,7 +3,10 @@
 namespace Omnipay\Barion\Message;
 
 use Guzzle\Http\Exception\ClientErrorResponseException;
+use Omnipay\Barion\Item;
 use Omnipay\Barion\ItemBag;
+use Omnipay\Barion\PaymentTransactionModel;
+use Omnipay\Barion\PreparePaymentRequestModel;
 
 /**
  * Barion Purchase Request
@@ -15,7 +18,7 @@ class PurchaseRequest extends AbstractRequest
     public function getData()
     {
 
-        $ppr = new \PreparePaymentRequestModel();
+        $ppr = new PreparePaymentRequestModel();
 
         if ($this->getGuestCheckOut() !== NULL) {
             $ppr->GuestCheckOut = $this->getGuestCheckOut();
@@ -75,7 +78,7 @@ class PurchaseRequest extends AbstractRequest
             $ppr->Locale = $this->getLocale();
         }
 
-        $trans = new \PaymentTransactionModel();
+        $trans = new PaymentTransactionModel();
         $trans->POSTransactionId = ($this->getPaymentRequestId() !== NULL ? $this->getPaymentRequestId() . '-01' : '');
         $trans->Payee = $this->getPayee();
         $trans->Total = $this->getAmount();
@@ -85,7 +88,7 @@ class PurchaseRequest extends AbstractRequest
         if ($items) {
             foreach ($items as $item) {
 
-                $transItem = new \ItemModel();
+                $transItem = new Item();
                 $transItem->Name = $item->getName() ?: '';
                 $transItem->Description = $item->getDescription() ?: '-';
                 $transItem->Quantity = $item->getQuantity() ?: '';

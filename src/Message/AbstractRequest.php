@@ -9,6 +9,8 @@
 namespace Omnipay\Barion\Message;
 
 
+use Omnipay\Barion\BarionEnvironment;
+
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     protected $apiVersion = "2";
@@ -27,14 +29,14 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function getBarionEnvironment(){
         if($this->getTestMode()){
-            return \BarionEnvironment::Test;
+            return BarionEnvironment::Test;
         }else{
-            return \BarionEnvironment::Prod;
+            return BarionEnvironment::Prod;
         }
     }
 
     public function getRedirectUrl(){
-        if($this->getBarionEnvironment() == \BarionEnvironment::Test){
+        if($this->getBarionEnvironment() == BarionEnvironment::Test){
             return BARION_WEB_URL_TEST;
         }else {
             return BARION_WEB_URL_PROD;
