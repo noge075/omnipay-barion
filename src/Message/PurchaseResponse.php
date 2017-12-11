@@ -7,8 +7,6 @@ use Omnipay\Common\Message\RequestInterface;
 
 class PurchaseResponse extends AbstractResponse implements RedirectResponseInterface
 {
-    protected $redirectUrl;
-
     public function isSuccessful()
     {
         return false;
@@ -20,7 +18,7 @@ class PurchaseResponse extends AbstractResponse implements RedirectResponseInter
     }
 
     public function getRedirectUrl(){
-        return $this->request->getRedirectUrl();
+        return $this->data["redirectUrl"];
     }
 
     public function getRedirectMethod()

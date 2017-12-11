@@ -25,6 +25,8 @@ class PurchaseRequest extends AbstractRequest
         }
 
         $ppr->PaymentType = $this->getPaymentType();
+        $ppr->RedirectUrl = $this->getRedirectUrl();
+
 
         if ($this->getReservationPeriod() !== NULL) {
             $ppr->ReservationPeriod = $this->getReservationPeriod();
@@ -54,9 +56,6 @@ class PurchaseRequest extends AbstractRequest
             $ppr->PayerHint = $this->getPayerHint();
         }
 
-        if ($this->getRedirectUrl() !== NULL) {
-            $ppr->RedirectUrl = $this->getRedirectUrl();
-        }
 
         if ($this->getCallbackUrl() !== NULL) {
             $ppr->CallbackUrl = $this->getCallbackUrl();
@@ -363,13 +362,6 @@ class PurchaseRequest extends AbstractRequest
         $this->setParameter('redirectUrl', $value);
     }
 
-    /**
-     * @return mixed
-     */
-    public function getRedirectUrl()
-    {
-        return $this->getParameter('redirectUrl');
-    }
 
     /**
      * @param $value
