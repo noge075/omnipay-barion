@@ -5,6 +5,7 @@ namespace Omnipay\Barion\Message;
 use Guzzle\Http\Exception\ClientErrorResponseException;
 use Omnipay\Barion\Item;
 use Omnipay\Barion\ItemBag;
+use Omnipay\Barion\ItemModel;
 use Omnipay\Barion\PaymentTransactionModel;
 use Omnipay\Barion\PreparePaymentRequestModel;
 
@@ -88,7 +89,7 @@ class PurchaseRequest extends AbstractRequest
         if ($items) {
             foreach ($items as $item) {
 
-                $transItem = new Item();
+                $transItem = new ItemModel();
                 $transItem->Name = $item->getName() ?: '';
                 $transItem->Description = $item->getDescription() ?: '-';
                 $transItem->Quantity = $item->getQuantity() ?: '';
