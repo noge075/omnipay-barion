@@ -12,12 +12,13 @@ namespace Omnipay\Barion\Message;
 use Guzzle\Http\ClientInterface;
 use Omnipay\Barion\BarionClient;
 use Omnipay\Barion\BarionEnvironment;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 {
     protected $apiVersion = "2";
 
-    public function __construct(ClientInterface $httpClient, \HttpRequest $httpRequest)
+    public function __construct(ClientInterface $httpClient, Request $httpRequest)
     {
         parent::__construct($httpClient, $httpRequest);
     }
