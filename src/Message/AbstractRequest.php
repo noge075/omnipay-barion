@@ -20,6 +20,8 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function __construct(ClientInterface $httpClient, Request $httpRequest)
     {
+        require_once '../library/BarionClient.php';
+
         parent::__construct($httpClient, $httpRequest);
     }
 
