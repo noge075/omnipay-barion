@@ -22,8 +22,12 @@
 *  PHP library for implementing REST API calls towards the Barion payment system.  
 *  
 */
+namespace Omnipay\Barion;
+
 
 include 'helpers' . DIRECTORY_SEPARATOR . 'loader.php';
+
+
 
 class BarionClient
 {
