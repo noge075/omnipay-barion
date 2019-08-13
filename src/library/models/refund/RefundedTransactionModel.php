@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,16 +15,32 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class PayeeTransactionToFinishModel
-{
+class RefundedTransactionModel implements iBarionModel {
+
     public $TransactionId;
     public $Total;
+    public $POSTransactionId;
     public $Comment;
+    public $Status;
 
     function __construct()
     {
         $this->TransactionId = "";
         $this->Total = 0;
+        $this->POSTransactionId = "";
         $this->Comment = "";
+        $this->Status = "";
+    }
+
+
+    public function fromJson($json)
+    {
+        if (!empty($json)) {
+            $this->TransactionId = $json['TransactionId'];
+            $this->Total = $json['Total'];
+            $this->POSTransactionId = $json['POSTransactionId'];
+            $this->Comment = $json['Comment'];
+            $this->Status = $json['Status'];
+        }
     }
 }

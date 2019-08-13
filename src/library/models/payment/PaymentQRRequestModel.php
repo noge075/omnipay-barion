@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,33 +15,16 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class RefundRequestModel extends BaseRequestModel
+class PaymentQRRequestModel extends BaseRequestModel
 {
+    public $UserName;
+    public $Password;
     public $PaymentId;
-    public $TransactionsToRefund;
+    public $Size;
 
     function __construct($paymentId)
     {
         $this->PaymentId = $paymentId;
+        $this->Size = QRCodeSize::Normal;
     }
-
-    public function AddTransaction(TransactionToRefundModel $transaction)
-    {
-        if ($this->TransactionsToRefund == null) {
-            $this->TransactionsToRefund = array();
-        }
-        array_push($this->TransactionsToRefund, $transaction);
-    }
-
-    public function AddTransactions($transactions)
-    {
-        if (!empty($transactions)) {
-            foreach ($transactions as $transaction) {
-                if ($transaction instanceof TransactionToRefundModel) {
-                    $this->AddTransaction($transaction);
-                }
-            }
-        }
-    }
-
 }

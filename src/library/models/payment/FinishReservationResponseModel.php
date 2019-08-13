@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,25 +15,21 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class PreparePaymentResponseModel extends BaseResponseModel implements iBarionModel
+class FinishReservationResponseModel extends BaseResponseModel implements iBarionModel
 {
+    public $IsSuccessful;
     public $PaymentId;
     public $PaymentRequestId;
     public $Status;
     public $Transactions;
-    public $QRUrl;
-    public $RecurrenceResult;
-    public $PaymentRedirectUrl;
 
     function __construct()
     {
         parent::__construct();
+        $this->IsSuccessful = false;
         $this->PaymentId = "";
         $this->PaymentRequestId = "";
         $this->Status = "";
-        $this->QRUrl = "";
-        $this->RecurrenceResult = "";
-        $this->PaymentRedirectUrl = "";
         $this->Transactions = array();
     }
 
@@ -41,11 +37,12 @@ class PreparePaymentResponseModel extends BaseResponseModel implements iBarionMo
     {
         if (!empty($json)) {
             parent::fromJson($json);
+
+            $this->IsSuccessful = jget($json, 'IsSuccessful');
             $this->PaymentId = jget($json, 'PaymentId');
             $this->PaymentRequestId = jget($json, 'PaymentRequestId');
             $this->Status = jget($json, 'Status');
-            $this->QRUrl = jget($json, 'QRUrl');
-            $this->RecurrenceResult = jget($json, 'RecurrenceResult');
+
             $this->Transactions = array();
 
             if (!empty($json['Transactions'])) {
@@ -55,7 +52,6 @@ class PreparePaymentResponseModel extends BaseResponseModel implements iBarionMo
                     array_push($this->Transactions, $tr);
                 }
             }
-
         }
     }
 }

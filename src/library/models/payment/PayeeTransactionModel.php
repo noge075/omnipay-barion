@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,18 +15,18 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class TransactionToRefundModel
+class PayeeTransactionModel
 {
-    public $TransactionId;
     public $POSTransactionId;
-    public $AmountToRefund;
+    public $Payee;
+    public $Total;
     public $Comment;
 
-    function __construct($transactionId = null, $posTransactionId = null, $amountToRefund = null, $comment = null)
+    function __construct()
     {
-        $this->TransactionId = $transactionId;
-        $this->POSTransactionId = $posTransactionId;
-        $this->AmountToRefund = $amountToRefund;
-        $this->Comment = $comment;
+        $this->POSTransactionId = "";
+        $this->Payee = "";
+        $this->Total = 0;
+        $this->Comment = "";
     }
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,16 +15,23 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class PaymentQRRequestModel extends BaseRequestModel
+class FundingInformationModel implements iBarionModel
 {
-    public $UserName;
-    public $Password;
-    public $PaymentId;
-    public $Size;
+    public $BankCard;
+    public $AuthorizationCode;
 
-    function __construct($paymentId)
+    function __construct()
     {
-        $this->PaymentId = $paymentId;
-        $this->Size = QRCodeSize::Normal;
+        $this->BankCard = new BankCardModel();
+        $this->AuthorizationCode = "";
+    }
+
+    public function fromJson($json)
+    {
+        if (!empty($json)) {
+            $this->BankCard = new BankCardModel();
+            $this->BankCard->fromJson(jget($json, 'BankCard'));
+            $this->AuthorizationCode = jget($json, 'AuthorizationCode');
+        }
     }
 }

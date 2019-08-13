@@ -15,25 +15,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ApiErrorModel
+class PaymentStateRequestModel extends BaseRequestModel
 {
-    public $ErrorCode;
-    public $Title;
-    public $Description;
+    public $PaymentId;
 
-    function __construct()
+    function __construct($paymentId)
     {
-        $this->ErrorCode = "";
-        $this->Title = "";
-        $this->Description = "";
-    }
-
-    public function fromJson($json)
-    {
-        if (!empty($json)) {
-            $this->ErrorCode = $json['ErrorCode'];
-            $this->Title = $json['Title'];
-            $this->Description = $json['Description'];
-        }
+        $this->PaymentId = $paymentId;
     }
 }

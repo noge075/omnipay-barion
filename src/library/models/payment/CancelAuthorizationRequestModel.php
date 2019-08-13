@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,34 +15,12 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class FinishReservationRequestModel extends BaseRequestModel
+class CancelAuthorizationRequestModel extends BaseRequestModel
 {
     public $PaymentId;
-    public $Transactions;
 
     function __construct($paymentId)
     {
         $this->PaymentId = $paymentId;
-        $this->Transactions = array();
     }
-
-    public function AddTransaction(TransactionToFinishModel $transaction)
-    {
-        if ($this->Transactions == null) {
-            $this->Transactions = array();
-        }
-        array_push($this->Transactions, $transaction);
-    }
-
-    public function AddTransactions($transactions)
-    {
-        if (!empty($transactions)) {
-            foreach ($transactions as $transaction) {
-                if ($transaction instanceof TransactionToFinishModel) {
-                    $this->AddTransaction($transaction);
-                }
-            }
-        }
-    }
-
 }

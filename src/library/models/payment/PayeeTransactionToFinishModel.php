@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,28 +15,16 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class BankCardModel implements iBarionModel
+class PayeeTransactionToFinishModel
 {
-    public $MaskedPan;
-    public $BankCardType;
-    public $ValidThruYear;
-    public $ValidThruMonth;
+    public $TransactionId;
+    public $Total;
+    public $Comment;
 
     function __construct()
     {
-        $this->MaskedPan = "";
-        $this->BankCardType = "";
-        $this->ValidThruYear = "";
-        $this->ValidThruMonth = "";
-    }
-
-    public function fromJson($json)
-    {
-        if (!empty($json)) {
-            $this->MaskedPan = jget($json, 'MaskedPan');
-            $this->BankCardType = jget($json, 'BankCardType');
-            $this->ValidThruYear = jget($json, 'ValidThruYear');
-            $this->ValidThruMonth = jget($json, 'ValidThruMonth');
-        }
+        $this->TransactionId = "";
+        $this->Total = 0;
+        $this->Comment = "";
     }
 }

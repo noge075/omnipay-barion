@@ -1,6 +1,5 @@
 <?php
 
-namespace Omnipay\Barion;
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -29,5 +28,7 @@ DEFINE("API_ENDPOINT_PAYMENTSTATE", "/Payment/GetPaymentState");
 DEFINE("API_ENDPOINT_QRCODE", "/QR/Generate");
 DEFINE("API_ENDPOINT_REFUND", "/Payment/Refund");
 DEFINE("API_ENDPOINT_FINISHRESERVATION", "/Payment/FinishReservation");
+DEFINE("API_ENDPOINT_CAPTURE", "/Payment/Capture");
+DEFINE("API_ENDPOINT_CANCELAUTHORIZATION", "/Payment/CancelAuthorization");
 
 DEFINE("PAYMENT_URL", "/Pay");

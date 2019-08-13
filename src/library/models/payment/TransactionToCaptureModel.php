@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,23 +15,21 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class PaymentTransactionModel
+class TransactionToCaptureModel
 {
-    public $POSTransactionId;
-    public $Payee;
+    public $TransactionId;
     public $Total;
-    public $Comment;
-    public $Items;
     public $PayeeTransactions;
+    public $Items;
+    public $Comment;
 
     function __construct()
     {
-        $this->POSTransactionId = "";
-        $this->Payee = "";
+        $this->TransactionId = "";
         $this->Total = 0;
+        $this->PayeeTransactions = array();
         $this->Comment = "";
         $this->Items = array();
-        $this->PayeeTransactions = array();
     }
 
     public function AddItem(ItemModel $item)
@@ -52,8 +50,8 @@ class PaymentTransactionModel
             }
         }
     }
-
-    public function AddPayeeTransaction(PayeeTransactionModel $model)
+    
+    public function AddPayeeTransaction(PayeeTransactionToFinishModel $model)
     {
         if ($this->PayeeTransactions == null) {
             $this->PayeeTransactions = array();
@@ -65,7 +63,7 @@ class PaymentTransactionModel
     {
         if (!empty($transactions)) {
             foreach ($transactions as $transaction) {
-                if ($transaction instanceof PayeeTransactionModel) {
+                if ($transaction instanceof PayeeTransactionToFinishModel) {
                     $this->AddPayeeTransaction($transaction);
                 }
             }

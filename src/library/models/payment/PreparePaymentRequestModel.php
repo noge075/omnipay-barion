@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -19,6 +19,7 @@ class PreparePaymentRequestModel extends BaseRequestModel
 {
     public $PaymentType;
     public $ReservationPeriod;
+    public $DelayedCapturePeriod;
     public $PaymentWindow;
     public $GuestCheckout;
     public $FundingSources;
@@ -28,11 +29,18 @@ class PreparePaymentRequestModel extends BaseRequestModel
     public $Locale;
     public $OrderNumber;
     public $ShippingAddress;
+    public $BillingAddress;
     public $InitiateRecurrence;
     public $RecurrenceId;
     public $RedirectUrl;
     public $CallbackUrl;
     public $Currency;
+    public $CardHolderNameHint;
+    public $PayerPhoneNumber;
+    public $PayerWorkPhoneNumber;
+    public $PayerHomePhoneNumber;
+    public $PayerAccountInformation;
+    public $PurchaseInformation;
 
     function __construct($requestId = null, $type = PaymentType::Immediate, $guestCheckoutAllowed = true, $allowedFundingSources = array(FundingSourceType::All), $window = "00:30:00", $locale = "hu-HU", $initiateRecurrence = false, $recurrenceId = null, $redirectUrl = null, $callbackUrl = null, $currency = Currency::HUF)
     {

@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,7 +15,7 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class FinishReservationResponseModel extends BaseResponseModel implements iBarionModel
+class CancelAuthorizationResponseModel extends BaseResponseModel implements iBarionModel
 {
     public $IsSuccessful;
     public $PaymentId;

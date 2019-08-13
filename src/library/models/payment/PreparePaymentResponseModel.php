@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,33 +15,47 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class RefundResponseModel extends BaseResponseModel implements iBarionModel
+class PreparePaymentResponseModel extends BaseResponseModel implements iBarionModel
 {
     public $PaymentId;
-    public $RefundedTransactions;
+    public $PaymentRequestId;
+    public $Status;
+    public $Transactions;
+    public $QRUrl;
+    public $RecurrenceResult;
+    public $PaymentRedirectUrl;
 
     function __construct()
     {
         parent::__construct();
         $this->PaymentId = "";
-        $this->RefundedTransactions = array();
+        $this->PaymentRequestId = "";
+        $this->Status = "";
+        $this->QRUrl = "";
+        $this->RecurrenceResult = "";
+        $this->PaymentRedirectUrl = "";
+        $this->Transactions = array();
     }
 
     public function fromJson($json)
     {
         if (!empty($json)) {
             parent::fromJson($json);
-
             $this->PaymentId = jget($json, 'PaymentId');
-            $this->RefundedTransactions = array();
+            $this->PaymentRequestId = jget($json, 'PaymentRequestId');
+            $this->Status = jget($json, 'Status');
+            $this->QRUrl = jget($json, 'QRUrl');
+            $this->RecurrenceResult = jget($json, 'RecurrenceResult');
+            $this->Transactions = array();
 
-            if (!empty($json['RefundedTransactions'])) {
-                foreach ($json['RefundedTransactions'] as $key => $value) {
-                    $tr = new RefundedTransactionModel();
+            if (!empty($json['Transactions'])) {
+                foreach ($json['Transactions'] as $key => $value) {
+                    $tr = new TransactionResponseModel();
                     $tr->fromJson($value);
-                    array_push($this->RefundedTransactions, $tr);
+                    array_push($this->Transactions, $tr);
                 }
             }
+
         }
     }
 }

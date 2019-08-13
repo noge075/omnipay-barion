@@ -1,5 +1,4 @@
 <?php
-namespace Omnipay\Barion;
 
 abstract class BarionEnvironment
 {
@@ -11,6 +10,7 @@ abstract class PaymentType
 {
     const Immediate = "Immediate";
     const Reservation = "Reservation";
+    const DelayedCapture = "DelayedCapture";
 }
 
 abstract class FundingSourceType
@@ -28,8 +28,12 @@ abstract class PaymentStatus
     const Started = "Started";
     // 21
     const InProgress = "InProgress";
+    // 22
+    const Waiting = "Waiting";
     // 25
     const Reserved = "Reserved";
+    // 26
+    const Authorized = "Authorized";
     // 30
     const Canceled = "Canceled";
     // 40
@@ -65,7 +69,8 @@ abstract class UILocale
     const SL = "sl-SI";
     const SK = "sk-SK";
     const FR = "fr-FR";
-    
+    const CZ = "cs-CZ";
+    const GR = "el-GR";
 }
 
 abstract class Currency
@@ -73,6 +78,7 @@ abstract class Currency
     const HUF = "HUF";
     const EUR = "EUR";
     const USD = "USD";
+    const CZK = "CZK";
 
     public static function isValid($name)
     {
@@ -90,4 +96,97 @@ abstract class CardType
     const Visa = "Visa";
     const Electron = "Electron";
     const AmericanExpress = "AmericanExpress";
+}
+
+// --------------------
+// 3D Secure properties
+// --------------------
+
+abstract class AccountCreationIndicator
+{
+    const NoAccount = "NoAccount";
+    const CreatedDuringThisTransaction = "CreatedDuringThisTransaction";
+    const LessThan30Days = "LessThan30Days";
+    const Between30And60Days = "Between30And60Days";
+    const MoreThan60Days = "MoreThan60Days";
+}
+
+abstract class AccountChangeIndicator
+{
+    const ChangedDuringThisTransaction = "ChangedDuringThisTransaction";
+    const LessThan30Days = "LessThan30Days";
+    const Between30And60Days = "Between30And60Days";
+    const MoreThan60Days = "MoreThan60Days";
+}
+
+abstract class PasswordChangeIndicator
+{
+    const NoChange = "NoChange";
+    const ChangedDuringThisTransaction = "ChangedDuringThisTransaction";
+    const LessThan30Days = "LessThan30Days";
+    const Between30And60Days = "Between30And60Days";
+    const MoreThan60Days = "MoreThan60Days";
+}
+
+abstract class ShippingAddressUsageIndicator
+{
+    const ThisTransaction = "ThisTransaction";
+    const LessThan30Days = "LessThan30Days";
+    const Between30And60Days = "Between30And60Days";
+    const MoreThan60Days = "MoreThan60Days";
+}
+
+abstract class PaymentMethodIndicator
+{
+    const NoAccount = "NoAccount";
+    const ThisTransaction = "ThisTransaction";
+    const LessThan30Days = "LessThan30Days";
+    const Between30And60Days = "Between30And60Days";
+    const MoreThan60Days = "MoreThan60Days";
+}
+
+abstract class SuspiciousActivityIndicator
+{
+    const NoSuspiciousActivityObserved = "NoSuspiciousActivityObserved";
+    const SuspiciousActivityObserved = "SuspiciousActivityObserved";
+}
+
+abstract class DeliveryTimeframeType
+{
+    const ElectronicDelivery = "ElectronicDelivery";
+    const SameDayShipping = "SameDayShipping";
+    const OvernightShipping = "OvernightShipping";
+    const TwoDayOrMoreShipping = "TwoDayOrMoreShipping";
+}
+
+abstract class AvailabilityIndicator
+{
+    const MerchandiseAvailable = "MerchandiseAvailable";
+    const FutureAvailability = "FutureAvailability";
+}
+
+abstract class ReOrderIndicator
+{
+    const FirstTimeOrdered = "FirstTimeOrdered";
+    const ReOrdered = "ReOrdered";
+}
+
+abstract class ShippingAddressIndicator
+{
+    const ShipToCardholdersBillingAddress = "ShipToCardholdersBillingAddress";
+    const ShipToAnotherVerifiedAddress = "ShipToAnotherVerifiedAddress";
+    const ShipToDifferentAddress = "ShipToDifferentAddress";
+    const ShipToStore = "ShipToStore";
+    const DigitalGoods = "DigitalGoods";
+    const TravelAndEventTickets = "TravelAndEventTickets";
+    const Other = "Other";
+}
+
+abstract class PurchaseType
+{
+    const GoodsAndServicePurchase = "GoodsAndServicePurchase";
+    const CheckAcceptance = "CheckAcceptance";
+    const AccountFunding = "AccountFunding";
+    const QuasiCashTransaction = "QuasiCashTransaction";
+    const PrePaidVacationAndLoan = "PrePaidVacationAndLoan";
 }

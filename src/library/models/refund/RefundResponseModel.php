@@ -1,5 +1,4 @@
 <?php
-namespace Omnipay\Barion;
 
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
@@ -16,23 +15,33 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class FundingInformationModel implements iBarionModel
+class RefundResponseModel extends BaseResponseModel implements iBarionModel
 {
-    public $BankCard;
-    public $AuthorizationCode;
+    public $PaymentId;
+    public $RefundedTransactions;
 
     function __construct()
     {
-        $this->BankCard = new BankCardModel();
-        $this->AuthorizationCode = "";
+        parent::__construct();
+        $this->PaymentId = "";
+        $this->RefundedTransactions = array();
     }
 
     public function fromJson($json)
     {
         if (!empty($json)) {
-            $this->BankCard = new BankCardModel();
-            $this->BankCard->fromJson(jget($json, 'BankCard'));
-            $this->AuthorizationCode = jget($json, 'AuthorizationCode');
+            parent::fromJson($json);
+
+            $this->PaymentId = jget($json, 'PaymentId');
+            $this->RefundedTransactions = array();
+
+            if (!empty($json['RefundedTransactions'])) {
+                foreach ($json['RefundedTransactions'] as $key => $value) {
+                    $tr = new RefundedTransactionModel();
+                    $tr->fromJson($value);
+                    array_push($this->RefundedTransactions, $tr);
+                }
+            }
         }
     }
 }

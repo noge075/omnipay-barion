@@ -1,5 +1,5 @@
 <?php
-namespace Omnipay\Barion;
+
 /**
  * Copyright 2016 Barion Payment Inc. All Rights Reserved.
  * <p/>
@@ -15,37 +15,24 @@ namespace Omnipay\Barion;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-class ItemModel implements iBarionModel
+class UserModel implements iBarionModel
 {
     public $Name;
-    public $Description;
-    public $Quantity;
-    public $Unit;
-    public $UnitPrice;
-    public $ItemTotal;
-    public $SKU;
+    public $Email;
 
     function __construct()
     {
         $this->Name = "";
-        $this->Description = "";
-        $this->Quantity = 0;
-        $this->Unit = "";
-        $this->UnitPrice = 0;
-        $this->ItemTotal = 0;
-        $this->SKU = "";
+        $this->Email = "";
     }
 
-    public function fromJson($json)
+    function fromJson($json)
     {
         if (!empty($json)) {
-            $this->Name = jget($json, 'Name');
-            $this->Description = jget($json, 'Description');
-            $this->Quantity = jget($json, 'Quantity');
-            $this->Unit = jget($json, 'Unit');
-            $this->UnitPrice = jget($json, 'UnitPrice');
-            $this->ItemTotal = jget($json, 'ItemTotal');
-            $this->SKU = jget($json, 'SKU');
+            $this->Email = $json['Email'];
+
+            $name = new UserNameModel();
+            $name->fromJson($json['Name']);
         }
     }
 }
