@@ -4,7 +4,7 @@ namespace Omnipay\Barion;
 use Omnipay\Barion\Message\NotifyRequest;
 use Omnipay\Barion\Message\PurchaseRequest;
 use Omnipay\Common\AbstractGateway;
-use Omnipay\Common\Message\AbstractRequest;
+use Omnipay\Common\Http\Client;
 
 class Gateway extends AbstractGateway
 {
@@ -38,10 +38,7 @@ class Gateway extends AbstractGateway
 		];
 	}
 
-    /**
-     * @param array $options
-     * @return AbstractRequest
-     */
+
     public function purchase(array $options = [])
 	{
 		return $this->createRequest(PurchaseRequest::class, $options);
@@ -50,6 +47,10 @@ class Gateway extends AbstractGateway
     public function acceptNotification(array $parameters = array())
     {
         return $this->createRequest(NotifyRequest::class, $parameters);
+    }
+
+    public function getDefaultHttpClient(){
+        return new Client();
     }
 
 	/**
