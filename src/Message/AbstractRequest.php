@@ -9,7 +9,7 @@
 namespace Omnipay\Barion\Message;
 
 
-use Guzzle\Http\ClientInterface;
+use Omnipay\Common\Http\ClientInterface;
 use Omnipay\Barion\BarionClient;
 use Omnipay\Barion\BarionEnvironment;
 use Symfony\Component\HttpFoundation\Request;
