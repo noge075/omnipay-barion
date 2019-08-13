@@ -20,6 +20,9 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
 
     public function __construct(ClientInterface $httpClient, Request $httpRequest)
     {
+
+        require_once __DIR__.'/../library/helpers/loader.php';
+
         parent::__construct($httpClient, $httpRequest);
     }
 
