@@ -25,7 +25,7 @@ class Gateway extends AbstractGateway
 			'guestCheckOut'      => true,
 			'initiateRecurrence' => null,
 			'recurrenceId'       => null,
-			'fundingSources'     => array(FundingSourceType::All),
+			'FundingSources'     => array(FundingSourceType::All),
 			'paymentRequestId'   => null,
 			'payerHint'          => null,
 			'redirectUrl'        => null,
@@ -202,7 +202,7 @@ class Gateway extends AbstractGateway
 	 */
 	public function setFundingSources($value)
 	{
-		$this->setParameter('fundingSources', $value);
+		$this->setParameter('FundingSources', $value);
 	}
 
 	/**
@@ -210,7 +210,7 @@ class Gateway extends AbstractGateway
 	 */
 	public function getFundingSources()
 	{
-		return $this->getParameter('fundingSources');
+		return $this->getParameter('FundingSources');
 	}
 
 	/**
