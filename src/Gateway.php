@@ -25,7 +25,7 @@ class Gateway extends AbstractGateway
 			'guestCheckOut'      => true,
 			'initiateRecurrence' => null,
 			'recurrenceId'       => null,
-			'FundingSources'     => array(FundingSourceType::All),
+			'fundingSources'     => array(FundingSourceType::All),
 			'paymentRequestId'   => null,
 			'payerHint'          => null,
 			'redirectUrl'        => null,
@@ -34,7 +34,8 @@ class Gateway extends AbstractGateway
 			'orderNumber'        => null,
 			'shippingAddress'    => null,
 			'locale'             => UILocale::EN,
-			'dump'             => false,
+			'dump'               => false,
+            'currency'           => Currency::EUR
 		];
 	}
 
@@ -52,6 +53,19 @@ class Gateway extends AbstractGateway
     public function getDefaultHttpClient(){
         return new Client();
     }
+
+
+
+    public function setCurrency($value)
+    {
+        $this->setParameter('currency', $value);
+    }
+
+    public function getCurrency()
+    {
+        return $this->getParameter('currency');
+    }
+
 
 	/**
 	 * @param $value
@@ -202,7 +216,7 @@ class Gateway extends AbstractGateway
 	 */
 	public function setFundingSources($value)
 	{
-		$this->setParameter('FundingSources', $value);
+		$this->setParameter('fundingSources', $value);
 	}
 
 	/**
@@ -210,7 +224,7 @@ class Gateway extends AbstractGateway
 	 */
 	public function getFundingSources()
 	{
-		return $this->getParameter('FundingSources');
+		return $this->getParameter('fundingSources');
 	}
 
 	/**

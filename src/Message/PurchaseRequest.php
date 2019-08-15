@@ -28,6 +28,10 @@ class PurchaseRequest extends AbstractRequest
         $ppr->RedirectUrl = $this->getRedirectUrl();
 
 
+        if ($this->getCurrency() !== NULL) {
+            $ppr->Currency = $this->getCurrency();
+        }
+
         if ($this->getReservationPeriod() !== NULL) {
             $ppr->ReservationPeriod = $this->getReservationPeriod();
         }
