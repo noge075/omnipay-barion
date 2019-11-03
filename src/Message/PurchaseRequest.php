@@ -94,10 +94,10 @@ class PurchaseRequest extends AbstractRequest
                 $transItem = new ItemModel();
                 $transItem->Name = $item->getName() ?: '';
                 $transItem->Description = $item->getDescription() ?: '-';
-                $transItem->Quantity = $item->getQuantity() ?: '';
+                $transItem->Quantity = $item->getQuantity();
                 $transItem->Unit = $item->getUnitName();
-                $transItem->UnitPrice = $item->getPrice() ?: '';
-                $transItem->ItemTotal = $item->getPrice() && $item->getQuantity() ? ($item->getPrice() * $item->getQuantity()) : '';
+                $transItem->UnitPrice = $item->getPrice();
+                $transItem->ItemTotal = $item->getPrice() * $item->getQuantity();
                 $transItem->SKU = $item->getSKU();
 
                 $trans->AddItem($transItem);
