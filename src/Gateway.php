@@ -28,7 +28,7 @@ class Gateway extends AbstractGateway
 			'fundingSources'     => array(FundingSourceType::All),
 			'paymentRequestId'   => null,
 			'payerHint'          => null,
-                        'userRedirectUrl'    => null,
+                        'redirectUrl'    => null,
 			'callbackUrl'        => null,
 			'transactions'       => null,
 			'orderNumber'        => null,
