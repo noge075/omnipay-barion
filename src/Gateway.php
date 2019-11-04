@@ -29,6 +29,7 @@ class Gateway extends AbstractGateway
 			'paymentRequestId'   => null,
 			'payerHint'          => null,
 			'redirectUrl'        => null,
+            'userRedirectUrl'    => null,
 			'callbackUrl'        => null,
 			'transactions'       => null,
 			'orderNumber'        => null,
@@ -274,6 +275,22 @@ class Gateway extends AbstractGateway
 	{
 		return $this->getParameter('redirectUrl');
 	}
+
+    /**
+     * @param $value
+     */
+    public function setUserRedirectUrl($value)
+    {
+        $this->setParameter('userRedirectUrl', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserRedirectUrl()
+    {
+        return $this->getParameter('userRedirectUrl');
+    }
 
 	/**
 	 * @param $value
