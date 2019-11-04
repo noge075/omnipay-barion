@@ -25,12 +25,10 @@ class PurchaseRequest extends AbstractRequest
         }
 
         $ppr->PaymentType = $this->getPaymentType();
-        $ppr->RedirectUrl = $this->getRedirectUrl();
 
-
-        /*if ($this->getRedirectUrl() !== NULL) {
-            $ppr->RedirectUrl = $this->getUserRedirectUrl();
-        }*/
+        if ($this->getRedirectUrl() !== NULL) {
+            $ppr->RedirectUrl = $this->getRedirectUrl();
+        }
 
         if ($this->getCurrency() !== NULL) {
             $ppr->Currency = $this->getCurrency();
