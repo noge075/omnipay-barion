@@ -163,6 +163,10 @@ class PurchaseRequest extends AbstractRequest
     public function getUserRedirectUrl(){
         $this->getParameter('userRedirectUrl');
     }
+	
+    public function setUserRedirectUrl($value){
+        $this->setParameter('userRedirectUrl', $value);
+    }
 
     /**
      * @return mixed
