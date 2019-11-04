@@ -38,4 +38,8 @@ class NotifyResponse extends AbstractResponse implements NotificationInterface
         return $this->data->RequestSuccessful;
     }
 
+    public function getData(){
+        return $this->data;
+    }
+
 }
