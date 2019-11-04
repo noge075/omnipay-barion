@@ -112,7 +112,7 @@ class PurchaseRequest extends AbstractRequest
         if($this->getDump()){
             print_r($ppr);
         }
-
+	dd($ppr);
         return $this->getBarionClient()->PreparePayment($ppr);
     }
 
