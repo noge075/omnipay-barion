@@ -28,15 +28,14 @@ class Gateway extends AbstractGateway
 			'fundingSources'     => array(FundingSourceType::All),
 			'paymentRequestId'   => null,
 			'payerHint'          => null,
-			'redirectUrl'        => null,
-            'userRedirectUrl'    => null,
+                        'userRedirectUrl'    => null,
 			'callbackUrl'        => null,
 			'transactions'       => null,
 			'orderNumber'        => null,
 			'shippingAddress'    => null,
 			'locale'             => UILocale::EN,
 			'dump'               => false,
-            'currency'           => Currency::EUR
+                        'currency'           => Currency::EUR
 		];
 	}
 
