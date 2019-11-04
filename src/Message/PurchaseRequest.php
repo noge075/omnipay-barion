@@ -370,7 +370,7 @@ class PurchaseRequest extends AbstractRequest
 	
     public function getRedirectUrl()
     {
-        $this->getParameter('redirectUrl');
+        return $this->getParameter('redirectUrl');
     }
 
     /**
